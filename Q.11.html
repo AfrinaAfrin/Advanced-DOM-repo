@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paragraph Manager</title>
+  <style>
+    #paragraph-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    button {
+      margin-right: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Paragraph Manager</h1>
+
+   
+  <button id="add-btn">Add Paragraph</button>
+  <button id="remove-btn">Remove Last Paragraph</button>
+
+   
+  <div id="paragraph-container"></div>
+
+  <script>
+    // Select the elements
+    const addBtn = document.getElementById("add-btn");
+    const removeBtn = document.getElementById("remove-btn");
+    const paragraphContainer = document.getElementById("paragraph-container");
+
+    // Function to add a new paragraph
+    addBtn.addEventListener("click", () => {
+      // Create a new paragraph element
+      const newParagraph = document.createElement("p");
+      // Adding text to the paragraph
+      newParagraph.textContent = "This is a new paragraph.";
+      
+      paragraphContainer.appendChild(newParagraph);
+    });
+
+     
+    removeBtn.addEventListener("click", () => {
+      // Check if there are any paragraphs to remove
+      if (paragraphContainer.lastChild) {
+        // Remove the last child (paragraph) from the container
+        paragraphContainer.removeChild(paragraphContainer.lastChild);
+      }
+    });
+  </script>
+</body>
+</html>
