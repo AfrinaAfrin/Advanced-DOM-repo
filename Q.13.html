@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Propagation Exploration</title>
+  <style>
+    .outer, .middle, .inner {
+      padding: 20px;
+      margin: 10px;
+      border: 2px solid black;
+    }
+    .outer {
+      background-color: #f8d7da;
+    }
+    .middle {
+      background-color: #fff3cd;
+    }
+    .inner {
+      background-color: #d4edda;
+    }
+  </style>
+</head>
+<body>
+  <h1>Event Propagation Exploration</h1>
+
+   
+  <div class="outer" id="outer">
+    Outer Div
+    <button id="outer-button">Outer Button</button>
+
+    <div class="middle" id="middle">
+      Middle Div
+      <button id="middle-button">Middle Button</button>
+
+      <div class="inner" id="inner">
+        Inner Div
+        <button id="inner-button">Inner Button</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+     
+    const logEvent = (element, phase) => (event) => {
+      alert(`${element} clicked during ${phase} phase!`);
+    };
+
+     
+    const outerDiv = document.getElementById("outer");
+    const middleDiv = document.getElementById("middle");
+    const innerDiv = document.getElementById("inner");
+    const outerButton = document.getElementById("outer-button");
+    const middleButton = document.getElementById("middle-button");
+    const innerButton = document.getElementById("inner-button");
+
+    
+    outerDiv.addEventListener("click", logEvent("Outer Div", "capturing"), true);
+    middleDiv.addEventListener("click", logEvent("Middle Div", "capturing"), true);
+    innerDiv.addEventListener("click", logEvent("Inner Div", "capturing"), true);
+    outerDiv.addEventListener("click", logEvent("Outer Div", "bubbling"), false);
+    middleDiv.addEventListener("click", logEvent("Middle Div", "bubbling"), false);
+    innerDiv.addEventListener("click", logEvent("Inner Div", "bubbling"), false);
+
+    outerButton.addEventListener("click", logEvent("Outer Button", "bubbling"), false);
+    middleButton.addEventListener("click", logEvent("Middle Button", "bubbling"), false);
+    innerButton.addEventListener("click", (event) => {
+      alert("Inner Button clicked! Stopping propagation.");
+      event.stopPropagation();  
+    }, false);
+  </script>
+</body>
+</html>
